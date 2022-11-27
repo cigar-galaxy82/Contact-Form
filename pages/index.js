@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className="container">
       <h1>Get in touch</h1>
       <div className="email block">
         <label>Email</label>
