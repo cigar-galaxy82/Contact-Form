@@ -67,13 +67,20 @@ body {
   width: 30%;
   border: 3px solid black;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .button {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 textarea {
   resize: none;
+}
+
+button:hover{
+  background-color: #83a9eb;
+  transition: 50ms;
 }

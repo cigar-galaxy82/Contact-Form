@@ -7,6 +7,7 @@ export default async function run(req,res) {
   // Load the profile
    const profile = await sdk.getProfile('communication/send-email@2.1.0');
    const message = `
+Email: ${req.body.email}
 Phone: ${req.body.phone}
 Name: ${req.body.first} ${req.body.last}
 Message: ${req.body.message} 
@@ -15,8 +16,8 @@ Message: ${req.body.message}
   const result = await profile
     .getUseCase('SendEmail')
     .perform({
-      from: 'nissmos13@teslax.me',
-      to: req.body.email,
+      from: 'submitform@edudigy.cc',
+      to: 'te5547155@gmail.com',
       subject: 'New Message',
       text: message
     }, {

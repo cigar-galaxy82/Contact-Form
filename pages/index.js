@@ -1,12 +1,10 @@
 import React from "react";
-import styles from "../styles/Home.module.css";
 import { useState} from "react";
 import axios from "axios";
 
 
 export default function Home() {
 
-  // const
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [first, setFirst] = useState('')
@@ -24,6 +22,7 @@ export default function Home() {
         message
     }).then((response) => {
       alert("Email Send")
+      window.location.reload()
   })
   }
 
