@@ -1,60 +1,76 @@
-import React from "react";
-import { useState} from "react";
-import axios from "axios";
-
+import React from 'react';
 
 export default function Home() {
-
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [first, setFirst] = useState('')
-  const [last, setLast] = useState('')
-  const [message, setMessage] = useState('')
-
-
-  async function sendEmail () {
-      console.log(email, last, first, message, phone)
-      await axios.post("/api/email", {
-        email,
-        first,
-        last,
-        phone,
-        message
-    }).then((response) => {
-      alert("Email Send")
-      window.location.reload()
-  })
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    try {
+      const response = await fetch('/api/email', {
+        method: 'post',
+        body: new URLSearchParams(data),
+      });
+      if (!response.ok) {
+        throw new Error(`Invalid response: ${response.status}`);
+      }
+      alert('Thanks for contacting us, we will get back to you soon!');
+    } catch (err) {
+      console.error(err);
+      alert("We can't submit the form, try again later?");
+    }
   }
 
   return (
-    <div className="container">
+    <form className="container" onSubmit={handleSubmit}>
       <h1>Get in touch</h1>
       <div className="email block">
-        <label>Email</label>
-        <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} required/>
+        <label htmlFor="frm-email">Email</label>
+        <input
+          id="frm-email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          required
+        />
       </div>
       <div className="block phone">
-        <label>Phone</label>
-        <input type="text" id="phone" name="phone" onChange={(e) => setPhone(e.target.value)}  required/>
+        <label htmlFor="frm-phone">Phone</label>
+        <input
+          id="frm-phone"
+          type="text"
+          name="phone"
+          autoComplete="tel"
+          required
+        />
       </div>
       <div className="name block">
         <div>
-          <label>First</label>
-          <input type="text" id="first" name="first" onChange={(e) => setFirst(e.target.value)} required/>
+          <label htmlFor="frm-first">First Name</label>
+          <input
+            id="frm-first"
+            type="text"
+            name="first"
+            autoComplete="given-name"
+            required
+          />
         </div>
-        
         <div>
-          <label>Last</label>
-          <input type="text" id="last" name="last" onChange={(e) => setLast(e.target.value)} required/>
+          <label htmlFor="frm-last">Last Name</label>
+          <input
+            id="frm-last"
+            type="text"
+            name="last"
+            autoComplete="family-name"
+            required
+          />
         </div>
       </div>
       <div className="message block">
-        <label>Message</label>
-        <textarea rows="6" id="message" name="message" onChange={(e) => setMessage(e.target.value)}></textarea>
+        <label htmlFor="frm-message">Message</label>
+        <textarea id="frm-message" rows="6" name="message"></textarea>
       </div>
       <div className="button block">
-      <button id="submit" onClick={sendEmail}>Submit</button>
+        <button type="submit">Submit</button>
       </div>
-    </div>
+    </form>
   );
 }
